@@ -45,7 +45,7 @@ def get_page_info(url):
             
         date = datetime.now().strftime('%Y-%m-%d')
         
-        shortcode = f'''{{{{< blog-preview-card 
+        shortcode = f'''{{{{< link-preview-card 
     url="{url}"
     title="{title.strip()}"
     description="{description.strip()}"
