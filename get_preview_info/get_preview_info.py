@@ -31,12 +31,22 @@ def get_page_info(url):
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        title = soup.title.string if soup.title else ''
+        # 清理和轉義文字
+        def clean_text(text):
+            if not text:
+                return ''
+            # 移除換行符並替換為空格
+            text = ' '.join(text.split())
+            # 轉義雙引號
+            text = text.replace('"', '&quot;')
+            return text
+            
+        title = clean_text(soup.title.string if soup.title else '')
         
         description = ''
         desc_meta = soup.find('meta', attrs={'name': 'description'}) or soup.find('meta', attrs={'property': 'og:description'})
         if desc_meta:
-            description = desc_meta.get('content', '')
+            description = clean_text(desc_meta.get('content', ''))
             
         image = ''
         img_meta = soup.find('meta', attrs={'property': 'og:image'})
