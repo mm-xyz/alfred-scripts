@@ -1,0 +1,6 @@
+# 一般的 Git 忽略項目
+.DS_Store
+node_modules/
+.env
+*.log
+*.pdf
